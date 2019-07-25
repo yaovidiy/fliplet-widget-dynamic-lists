@@ -1213,11 +1213,8 @@ DynamicList.prototype.getActiveFilters = function () {
 
 DynamicList.prototype.calculateFiltersHeight = function($el) {
   $el.find('.hidden-filter-controls').each(function () {
-    var $controls = $(this);
-    var $content = $controls.find('.hidden-filter-controls-content');
-    var totalHeight = checkBrowser($content, $content.height());
-    $controls.animate({
-      height: totalHeight,
+    $(this).animate({
+      height: '100%',
     }, 200);   
   });
 }
@@ -1749,37 +1746,4 @@ DynamicList.prototype.collapseElement = function(elementToCollapse) {
   elementToCollapse.removeClass('open');
   elementToCollapse.parents('.small-card-list-item').removeClass('open');
   elementToCollapse.find('.small-card-list-detail-content-scroll-wrapper').removeClass('open');
-}
-
-function checkBrowser ($elem, defaultHeight) {
-  console.log(`Start cheking browser! ${defaultHeight}`);
-  // To understand what browser user using. If it's Safari we recalculating "totalHeight" variable. 
-  var ua = navigator.userAgent.toLowerCase(); 
-  var totalHeight = defaultHeight;
-  if (ua.indexOf('safari') !== -1) { 
-    if ( !(ua.indexOf('chrome') > -1) ) {
-      /**
-       * If browser is Safari we looking for how many components filter content has and calculating height. 
-       * If one of the filter containers has more then eight values its height will be increased.
-       */
-      var labels = 0;
-      var containers = 0;
-      $elem.find('.hidden-filter-controls-label').each(function () {
-        labels += 25;
-      });
-      $elem.find('.hidden-filter-controls-filter-container').each(function (index) {
-        var $currentContainer = $(this);
-        var filtersVal = $currentContainer.find('.hidden-filter-controls-filter').length;
-        if ( ( $elem.find('.hidden-filter-controls-filter-container').length === ( index + 1 ) ) || filtersVal > 8 ){
-          containers += 60;
-          $currentContainer.css('height', '55px');
-        } else {
-          containers += 55;
-        }
-      });
-      totalHeight = labels + containers;
-      return totalHeight;
-    }
-  }
-  return totalHeight;
 }

@@ -1245,11 +1245,8 @@ DynamicList.prototype.getActiveFilters = function () {
 
 DynamicList.prototype.calculateFiltersHeight = function($el) {
   $el.find('.hidden-filter-controls').each(function () {
-    var $controls = $(this);
-    var $content = $controls.find('.hidden-filter-controls-content');
-    var totalHeight = checkBrowser($content, $content.height());
-    $controls.animate({
-      height: totalHeight,
+    $(this).animate({
+      height: '100%',
     }, 200);   
   });
 }

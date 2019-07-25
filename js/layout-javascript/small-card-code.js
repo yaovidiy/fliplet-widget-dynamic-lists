@@ -1219,9 +1219,7 @@ DynamicList.prototype.calculateFiltersHeight = function($el) {
     // To understand what browser user using. If it's Safari we recalculating "totalHeight" variable. 
     var ua = navigator.userAgent.toLowerCase(); 
     if (ua.indexOf('safari') != -1) { 
-      if (ua.indexOf('chrome') > -1) {
-        // If browser isn't Safari we do nothing.
-      } else {
+      if ( !(ua.indexOf('chrome') > -1) ) {
         /**
          * If browser is Safari we looking for how many components filter content has and calculating height. 
          * If one of the filter containers has more then eight values its height will be increased.
@@ -1232,19 +1230,16 @@ DynamicList.prototype.calculateFiltersHeight = function($el) {
           labels += 25;
         });
         $content.find('.hidden-filter-controls-filter-container').each(function (index) {
-
           var filtersVal = $(this).find('.hidden-filter-controls-filter').length;
-          
           if ( ( $content.find('.hidden-filter-controls-filter-container').length === ( index + 1 ) ) || filtersVal > 8 ){
             containers += 60;
             $(this).css('height', '55px');
-          }
-          else{
+          } else {
             containers += 55;
           }
         });
         totalHeight = labels + containers;
-      } 
+      }
     }
     $controls.animate({
       height: totalHeight,
